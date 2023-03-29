@@ -48,7 +48,7 @@ dict_ = dict(zip(['MPO','ES'],['Monetary Policy Orientation','Economic Sentiment
 #     df.to_csv('./streamlit_data.csv')
 
 # else: 
-df = pd.read_csv('./src/streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES'},axis=1)
+df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES'},axis=1)
 
 #
 #st.markdown("<h2 style='text-align: center; color: black;'>Central Bank Speech Sentiment</h2>", unsafe_allow_html=True)
