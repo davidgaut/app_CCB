@@ -1,7 +1,6 @@
-import json, pathlib, os
+# import json, pathlib, os
+# import numpy as np
 import pandas as pd
-import numpy as np
-
 import plotly.express as px
 import streamlit as st
 st.set_page_config(layout="wide")
@@ -69,7 +68,6 @@ fig.update_layout(
 )
 
 # fig.show()
-
 #st.markdown('***') #separator
 
 with col1:
