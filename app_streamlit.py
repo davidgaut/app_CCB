@@ -13,8 +13,11 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # streamlit run your_script.py
-# for google site use insert https://davidgaut-app-ccb-app-streamlit-p4ulid.streamlit.app/?embed=true
-
+# for google site use 
+# insert https://davidgaut-app-ccb-app-streamlit-p4ulid.streamlit.app/?embed=true
+# for git
+# git commit -m'app' -a
+# git push
 
 dict_ = dict(zip(['MPO','ES'],['Monetary Policy Orientation','Economic Sentiment']))
 df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES'},axis=1)
