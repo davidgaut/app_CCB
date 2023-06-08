@@ -15,7 +15,7 @@ st.markdown("""
 # streamlit run your_script.py
 # for google site use 
 # insert https://davidgaut-app-ccb-app-streamlit-p4ulid.streamlit.app/?embed=true
-# for git
+# for git (cd app)
 # git commit -m'app' -a
 # git push
 
