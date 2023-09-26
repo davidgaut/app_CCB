@@ -31,7 +31,12 @@ with col3:
     if key != '' and country != '':
         if not isinstance(country,list):
             search_term = country
-    
+with col4:
+    country = st.multiselect('Country',df['MPO'].columns.tolist(),default=['Euro Area'],format_func=lambda x: x.title())
+    if key != '' and country != '':
+        if not isinstance(country,list):
+            search_term = country
+
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
 
