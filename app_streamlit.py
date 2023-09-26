@@ -3,6 +3,9 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
 st.set_page_config(layout="wide")
 st.markdown("""
     <style>
@@ -20,31 +23,41 @@ st.markdown("""
 # git push
 
 dict_ = dict(zip(['MPO','ES'],['Monetary Policy Orientation','Economic Sentiment']))
-df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES'},axis=1)
+df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES',},axis=1)
 
-col1,_ = st.columns([50,1])
-col2, col3 = st.columns([35,35])
+col1, _          = st.columns([50,1])
+col2, col3, col4 = st.columns([35,35,35])
 with col2:
-    key = st.multiselect("Index",['MPO','ES'],default=['MPO'],format_func=lambda x: dict_[x])
+    key = st.multiselect("Index",['MPO','ES',],default=['MPO'],format_func=lambda x: dict_[x] if x in ['MPO','ES'] else x)
 with col3:
     country = st.multiselect('Country',df['MPO'].columns.tolist(),default=['Euro Area'],format_func=lambda x: x.title())
     if key != '' and country != '':
         if not isinstance(country,list):
             search_term = country
 with col4:
-    country = st.multiselect('Country',df['MPO'].columns.tolist(),default=['Euro Area'],format_func=lambda x: x.title())
-    if key != '' and country != '':
-        if not isinstance(country,list):
-            search_term = country
+    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
+    # if key != '' and country != '':
+    #     if not isinstance(country,list):
+    #         search_term = country
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
+instruments  = [' - '.join((i,c.replace('Euro Area','Germany'))) for i in instrument for c in country]
 
 df = df.droplevel(0,axis=1)
 df.columns = cols
 
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
+
+subfig = make_subplots(specs=[[{"secondary_y": True}]])
+fig  = px.line(df.reset_index(), x='date',y=targets,)
+if 'None' not in instrument:
+    fig2 = px.line(df.reset_index(), x='date',y=instruments,)
+    fig2.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
+    fig2.update_traces(yaxis="y2")
+    fig = subfig.add_traces(fig.data + fig2.data)
+
 fig.update_layout(
     title="Central Bank Speech Sentiment",
     xaxis_title="",
@@ -74,6 +87,10 @@ fig.update_layout(
     ),    
     # paper_bgcolor="LightSteelBlue",
 )
+fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
+# fig.update_xaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
+for ins in instruments:
+    fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
 
 # fig.show()
 #st.markdown('***') #separator
