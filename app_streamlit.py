@@ -56,6 +56,9 @@ if ('None' not in instrument) or len(instrument)>1:
     fig2.update_traces(yaxis="y2")
     fig = subfig.add_traces(fig.data + fig2.data)
 
+    fig2.update_layout(yaxis_title="Instrument",)
+
+fig.update_layout(yaxis_title="Index",)
 fig.update_layout(
     title="Central Bank Speech Sentiment",
     xaxis_title="",
