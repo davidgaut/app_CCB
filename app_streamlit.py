@@ -1,5 +1,3 @@
-# import json, pathlib, os
-# import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -25,8 +23,7 @@ st.markdown("""
 dict_ = dict(zip(['MPO','ES'],['Monetary Policy Orientation','Economic Sentiment']))
 df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES',},axis=1)
 
-
-
+# Streamlit Settings
 col1, _          = st.columns([50,1])
 col2, col3, col4 = st.columns([35,35,35])
 with col2:
@@ -46,13 +43,14 @@ instruments  = [' - '.join((i,c.replace('Euro Area','Germany'))) for i in instru
 df.columns = cols
 df = df.droplevel(0,axis=1)
 
-#
+# Plotly Fig
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
 
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets,)
 if ('None' not in instrument) or len(instruments)>1:
+    instruments = [i for i in instruments if i!=None]
     fig2 = px.line(df.reset_index(), x='date',y=instruments,)
     fig2.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
     fig2.update_traces(yaxis="y2")
@@ -97,6 +95,6 @@ for ins in instruments:
 
 with col1:
     st.plotly_chart(fig)
-    st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The indices are based </p>""",unsafe_allow_html=True,)
+    st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The indices can be plotted againts the.</p>""",unsafe_allow_html=True,)
     # st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The methods to compute the score are based on Loughran and McDonald (2011) and Apel, Blix, and Hull (2021).</p>""",unsafe_allow_html=True,)
 
