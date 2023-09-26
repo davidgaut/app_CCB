@@ -25,6 +25,8 @@ st.markdown("""
 dict_ = dict(zip(['MPO','ES'],['Monetary Policy Orientation','Economic Sentiment']))
 df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':'MPO','LM':'ES',},axis=1)
 
+
+
 col1, _          = st.columns([50,1])
 col2, col3, col4 = st.columns([35,35,35])
 with col2:
@@ -41,9 +43,10 @@ targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
 instruments  = [' - '.join((i,c.replace('Euro Area','Germany'))) for i in instrument for c in country]
 
-df = df.droplevel(0,axis=1)
 df.columns = cols
+df = df.droplevel(0,axis=1)
 
+#
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
 
@@ -94,5 +97,6 @@ for ins in instruments:
 
 with col1:
     st.plotly_chart(fig)
-    st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The methods to compute the score are based on Loughran and McDonald (2011) and Apel, Blix, and Hull (2021).</p>""",unsafe_allow_html=True,)
+    st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The indices are based </p>""",unsafe_allow_html=True,)
+    # st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The methods to compute the score are based on Loughran and McDonald (2011) and Apel, Blix, and Hull (2021).</p>""",unsafe_allow_html=True,)
 
