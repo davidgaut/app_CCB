@@ -34,7 +34,7 @@ with col3:
         if not isinstance(country,list):
             search_term = country
 with col4:
-    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
+    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y'], default=['None','2Y'], format_func = lambda x: x.title() if x!=None else x)
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
@@ -50,7 +50,7 @@ fig = px.line(df.reset_index(),x='date',y=targets,
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets,)
 if ('None' not in instrument) or len(instrument)>1:
-    instruments = [i for i in instruments if i!=None]
+    instruments = [i for i in instruments if not i.startswith('None')]
     fig2 = px.line(df.reset_index(), x='date',y=instruments,)
     fig2.update_yaxes(showgrid=False, gridwidth=0)
     fig2.update_traces(yaxis="y2")
