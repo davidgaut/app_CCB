@@ -40,8 +40,8 @@ targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
 instruments  = [' - '.join((i,c.replace('Euro Area','Germany'))) for i in instrument for c in country]
 
-df.columns = cols
 df = df.droplevel(0,axis=1)
+df.columns = cols
 
 # Plotly Fig
 fig = px.line(df.reset_index(),x='date',y=targets,
