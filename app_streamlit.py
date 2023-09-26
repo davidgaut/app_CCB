@@ -85,7 +85,7 @@ fig.update_layout(
     ),    
     # paper_bgcolor="LightSteelBlue",
 )
-fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
+# fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 # fig.update_xaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 for ins in instruments:
     fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
