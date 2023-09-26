@@ -36,9 +36,6 @@ with col3:
             search_term = country
 with col4:
     instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
-    # if key != '' and country != '':
-    #     if not isinstance(country,list):
-    #         search_term = country
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
@@ -52,8 +49,8 @@ fig = px.line(df.reset_index(),x='date',y=targets,
 
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets,)
-if 'None' not in instrument:
-    fig2 = px.line(df.reset_index(), x='date',y=instruments,)
+if ('None' not in instrument) or len(instrument)>1:
+    fig2 = px.line(df.reset_index(), x='date',y=[i for i in instruments if i!=None],)
     fig2.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
     fig2.update_traces(yaxis="y2")
     fig = subfig.add_traces(fig.data + fig2.data)
