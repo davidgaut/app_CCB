@@ -50,7 +50,7 @@ fig = px.line(df.reset_index(),x='date',y=targets,
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets,)
 if ('None' not in instrument) or len(instrument)>1:
-    instrument = [i for i in instrument if i!=None]
+    instruments = [i for i in instruments if i!=None]
     fig2 = px.line(df.reset_index(), x='date',y=instruments,)
     fig2.update_yaxes(showgrid=False, gridwidth=0)
     fig2.update_traces(yaxis="y2")
