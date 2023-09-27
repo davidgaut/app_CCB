@@ -53,13 +53,13 @@ subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets)
 if with_instruments:
     instruments = [i for i in instruments if not i.startswith('None')]
-    fig2 = px.line(df.reset_index(), x='date',y=instruments,)
+    fig2 = px.line(df.reset_index(), x='date',y=instruments,title="Yields / Rates",)
     fig2.update_yaxes(showgrid=True, gridwidth=0,)
     fig2.update_traces(yaxis="y2",)
     fig = subfig.add_traces(fig.data + fig2.data)
 
     fig2.update_xaxes(showgrid=False, gridwidth=0,  gridcolor='LightPink')
-    fig2.update_layout(yaxis_title="Yields / Rates",)
+    # fig2.update_layout(yaxis_title="Yields / Rates",)
 
 fig.update_layout(
     title="Central Bank Speech Sentiment",
