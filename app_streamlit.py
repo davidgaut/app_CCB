@@ -34,7 +34,7 @@ with col3:
         if not isinstance(country,list):
             search_term = country
 with col4:
-    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y','Overnight Rate'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
+    instrument = st.multiselect('Instrument',['2Y','5Y','10Y','Overnight Rate'], default=[], format_func = lambda x: x.title() if x!=None else x)
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
@@ -99,5 +99,4 @@ for ins in instruments:
 with col1:
     st.plotly_chart(fig)
     st.caption("""<p style="font-family: Open Sans">This graph shows economic sentiment and monetary policy orientation indices for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches, a lower monetary policy orientation reflects dovish speeches. Indices can be plotted againts bond yields and overnight rates.</p>""",unsafe_allow_html=True,)
-    # st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The methods to compute the score are based on Loughran and McDonald (2011) and Apel, Blix, and Hull (2021).</p>""",unsafe_allow_html=True,)
 
