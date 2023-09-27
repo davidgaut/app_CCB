@@ -34,7 +34,7 @@ with col3:
         if not isinstance(country,list):
             search_term = country
 with col4:
-    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y','Overnight Rate'], default=['Overnight Rate'], format_func = lambda x: x.title() if x!=None else x)
+    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y','Overnight Rate'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
