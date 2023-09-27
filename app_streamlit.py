@@ -50,7 +50,8 @@ fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
 
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
-fig  = px.line(df.reset_index(), x='date',y=targets,)
+fig  = px.line(df.reset_index(), x='date',y=targets,
+    labels=dict(y="Indices",))
 if with_instruments:
     instruments = [i for i in instruments if not i.startswith('None')]
     fig2 = px.line(df.reset_index(), x='date',y=instruments,)
@@ -75,19 +76,13 @@ fig.update_layout(
     autosize=False,
     width=1000,
     height=400,
-    margin=dict(
-        l=30,
-        r=0,
-        b=30,
-        t=50,
-        pad=4
-    ),
+    margin=dict(l=30,r=0,b=30,t=50,pad=4),
     legend=dict(
-    yanchor="bottom",
-    orientation='h',
-    y=-0.45,
-    xanchor="left",
-    # x=0.10
+        yanchor="bottom",
+        orientation='h',
+        y=-0.45,
+        xanchor="left",
+        # x=0.10
     ),    
     # paper_bgcolor="LightSteelBlue",
 )
