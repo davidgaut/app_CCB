@@ -34,11 +34,11 @@ with col3:
         if not isinstance(country,list):
             search_term = country
 with col4:
-    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y','Overnight Rate'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
+    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y','Overnight Rate'], default=['Overnight Rate'], format_func = lambda x: x.title() if x!=None else x)
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
-instruments  = [' - '.join((i,c.replace('Euro Area','Germany'))) for i in instrument for c in country]
+instruments  = [' - '.join((i,c.replace('Euro Area','Germany') if not i.startswith('Overnight') else c)) for i in instrument for c in country]
 
 df = df.droplevel(0,axis=1)
 df.columns = cols
@@ -57,8 +57,8 @@ if ('None' not in instrument) or len(instrument)>1:
     fig = subfig.add_traces(fig.data + fig2.data)
 
     fig2.update_layout(yaxis_title="Yields / Rates",)
-
     fig2.update_xaxes(showgrid=False, gridwidth=0,  gridcolor='LightPink')
+
 fig.update_layout(yaxis_title="Indices",)
 fig.update_layout(
     title="Central Bank Speech Sentiment",
