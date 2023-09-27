@@ -44,29 +44,27 @@ df = df.droplevel(0,axis=1)
 df.columns = cols
 
 with_instruments = len(instrument)>1
-
+with_instruments=True
 # Plotly Fig
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
 
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
-fig  = px.line(df.reset_index(), x='date',y=targets,
-    labels=dict(y="Indices",))
+fig  = px.line(df.reset_index(), x='date',y=targets)
 if with_instruments:
     instruments = [i for i in instruments if not i.startswith('None')]
     fig2 = px.line(df.reset_index(), x='date',y=instruments,)
-    fig2.update_yaxes(showgrid=False, gridwidth=0)
-    fig2.update_traces(yaxis="y2")
+    fig2.update_yaxes(showgrid=True, gridwidth=0,)
+    fig2.update_traces(yaxis="y2",)
     fig = subfig.add_traces(fig.data + fig2.data)
 
-    fig2.update_layout(yaxis_title="Yields / Rates",)
     fig2.update_xaxes(showgrid=False, gridwidth=0,  gridcolor='LightPink')
+    fig2.update_layout(yaxis_title="Yields / Rates",)
 
-fig.update_layout(yaxis_title="Indices",)
 fig.update_layout(
     title="Central Bank Speech Sentiment",
     xaxis_title="",
-    yaxis_title="",
+    yaxis_title="Indices",
     legend_title="",
     font=dict(
         # family="Courier New, monospace",
@@ -90,7 +88,7 @@ fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 for ins in instruments:
     fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
 
-# fig.show()
+fig.show()
 #st.markdown('***') #separator
 
 with col1:
