@@ -36,15 +36,14 @@ with col3:
 with col4:
     instrument = st.multiselect('Instrument',['2Y','5Y','10Y','Overnight Rate'], default=[], format_func = lambda x: x.title() if x!=None else x)
 
-targets = [' - '.join((i,c)) for i in key for c in country]
-cols    = [' - '.join((i,c)) for i,c in df.columns]
+targets      = [' - '.join((i,c)) for i in key for c in country]
+cols         = [' - '.join((i,c)) for i,c in df.columns]
 instruments  = [' - '.join((i,c.replace('Euro Area','Germany') if not i.startswith('Overnight') else c)) for i in instrument for c in country]
 
 df = df.droplevel(0,axis=1)
 df.columns = cols
 
-with_instruments = len(instrument)>1
-with_instruments=True
+with_instruments = len(instrument)>=1
 # Plotly Fig
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
@@ -53,7 +52,7 @@ subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets)
 if with_instruments:
     instruments = [i for i in instruments if not i.startswith('None')]
-    fig2 = px.line(df.reset_index(), x='date',y=instruments, labels=dict( y2="Tip ($)"),)
+    fig2 = px.line(df.reset_index(), x='date',y=instruments, )
     fig2.update_yaxes(showgrid=True, gridwidth=0,)
     fig2.update_traces(yaxis="y2",)
     fig = subfig.add_traces(fig.data + fig2.data)
@@ -88,8 +87,7 @@ fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 for ins in instruments:
     fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
 
-fig.update_yaxes(title_text="<b>primary</b> yaxis title", secondary_y=True)
-fig2.update_yaxes(title_text="<b>secondary</b> yaxis title", secondary_y=True)
+fig.update_yaxes(title_text="Yields / Rates", secondary_y=True)
 fig.show()
 #st.markdown('***') #separator
 
