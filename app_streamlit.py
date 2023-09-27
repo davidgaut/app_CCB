@@ -58,6 +58,7 @@ if ('None' not in instrument) or len(instrument)>1:
 
     fig2.update_layout(yaxis_title="Yields / Rates",)
 
+    fig2.update_xaxes(showgrid=False, gridwidth=0,  gridcolor='LightPink')
 fig.update_layout(yaxis_title="Indices",)
 fig.update_layout(
     title="Central Bank Speech Sentiment",
@@ -91,7 +92,6 @@ fig.update_layout(
 fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 for ins in instruments:
     fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
-    fig2.update_xaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 
 # fig.show()
 #st.markdown('***') #separator
