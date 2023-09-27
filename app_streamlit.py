@@ -25,7 +25,7 @@ df = pd.read_csv('./streamlit_data.csv',index_col=0,header=[0,1]).rename({'ABH':
 
 # Streamlit Settings
 col1, _          = st.columns([50,1])
-col2, col3, col4 = st.columns([35,35,35])
+col3, col2, col4 = st.columns([35,35,35])
 with col2:
     key = st.multiselect("Index",['MPO','ES',],default=['MPO'],format_func=lambda x: dict_[x] if x in ['MPO','ES'] else x)
 with col3:
