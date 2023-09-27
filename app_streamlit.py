@@ -53,7 +53,7 @@ subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets)
 if with_instruments:
     instruments = [i for i in instruments if not i.startswith('None')]
-    fig2 = px.line(df.reset_index(), x='date',y=instruments, labels=dict( y="Tip ($)"),)
+    fig2 = px.line(df.reset_index(), x='date',y=instruments, labels=dict( y2="Tip ($)"),)
     fig2.update_yaxes(showgrid=True, gridwidth=0,)
     fig2.update_traces(yaxis="y2",)
     fig = subfig.add_traces(fig.data + fig2.data)
@@ -88,6 +88,8 @@ fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 for ins in instruments:
     fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
 
+fig.update_yaxes(title_text="<b>primary</b> yaxis title", secondary_y=True)
+fig2.update_yaxes(title_text="<b>secondary</b> yaxis title", secondary_y=True)
 fig.show()
 #st.markdown('***') #separator
 
