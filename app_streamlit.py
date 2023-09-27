@@ -43,13 +43,15 @@ instruments  = [' - '.join((i,c.replace('Euro Area','Germany') if not i.startswi
 df = df.droplevel(0,axis=1)
 df.columns = cols
 
+with_instruments = len(instrument)>1
+
 # Plotly Fig
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
 
 subfig = make_subplots(specs=[[{"secondary_y": True}]])
 fig  = px.line(df.reset_index(), x='date',y=targets,)
-if ('None' not in instrument) or len(instrument)>1:
+if with_instruments:
     instruments = [i for i in instruments if not i.startswith('None')]
     fig2 = px.line(df.reset_index(), x='date',y=instruments,)
     fig2.update_yaxes(showgrid=False, gridwidth=0)
