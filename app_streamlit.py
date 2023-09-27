@@ -63,7 +63,7 @@ if with_instruments:
 fig.update_layout(
     title="Central Bank Speech Sentiment",
     xaxis_title="",
-    yaxis_title="Indices",
+    # yaxis_title="Indices",
     legend_title="",
     font=dict(
         # family="Courier New, monospace",
@@ -87,6 +87,7 @@ fig.update_yaxes(showgrid=False, gridwidth=0, gridcolor='LightPink')
 for ins in instruments:
     fig.update_traces(patch={"line": {"dash": 'dot'}}, selector={"legendgroup": ins}) 
 
+fig.update_yaxes(title_text="Indices", secondary_y=False)
 fig.update_yaxes(title_text="Yields / Rates", secondary_y=True)
 fig.show()
 #st.markdown('***') #separator
