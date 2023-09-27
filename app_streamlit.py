@@ -34,7 +34,7 @@ with col3:
         if not isinstance(country,list):
             search_term = country
 with col4:
-    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y'], default=['None','2Y'], format_func = lambda x: x.title() if x!=None else x)
+    instrument = st.multiselect('Instrument',['None','2Y','5Y','10Y','Overnight Rate'], default=['None'], format_func = lambda x: x.title() if x!=None else x)
 
 targets = [' - '.join((i,c)) for i in key for c in country]
 cols    = [' - '.join((i,c)) for i,c in df.columns]
@@ -56,9 +56,9 @@ if ('None' not in instrument) or len(instrument)>1:
     fig2.update_traces(yaxis="y2")
     fig = subfig.add_traces(fig.data + fig2.data)
 
-    fig2.update_layout(yaxis_title="Instrument",)
+    fig2.update_layout(yaxis_title="Yields / Rates",)
 
-fig.update_layout(yaxis_title="Index",)
+fig.update_layout(yaxis_title="Indices",)
 fig.update_layout(
     title="Central Bank Speech Sentiment",
     xaxis_title="",
@@ -98,6 +98,6 @@ for ins in instruments:
 
 with col1:
     st.plotly_chart(fig)
-    st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The indices can be plotted againts the.</p>""",unsafe_allow_html=True,)
+    st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The indices can be plotted againts bond yields and overnight rates.</p>""",unsafe_allow_html=True,)
     # st.caption("""<p style="font-family: Open Sans">This graph shows the economic sentiment and monetary policy orientation for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches a lower monetary policy orientation reflects dovish speeches. The methods to compute the score are based on Loughran and McDonald (2011) and Apel, Blix, and Hull (2021).</p>""",unsafe_allow_html=True,)
 
