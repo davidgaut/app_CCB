@@ -98,5 +98,5 @@ fig.show()
 
 with col1:
     st.plotly_chart(fig)
-    st.caption("""<p style="font-family: Open Sans">This graph shows economic sentiment and monetary policy orientation indices for central bankers\' speeches. A high monetary policy orientation reflects hawkish speeches, and a lower monetary policy orientation reflects dovish speeches. Indices can be plotted against bond yields and overnight rates.</p>""",unsafe_allow_html=True,)
+    st.caption("""<p style="font-family: Open Sans">This graph shows economic sentiment and monetary policy orientation indices for central bankers\' speeches. A high monetary policy orientation reflects a hawkish stance, and a lower monetary policy orientation reflects a dovish stance. Indices can be plotted against bond yields and overnight interest rates.</p>""",unsafe_allow_html=True,)
 
