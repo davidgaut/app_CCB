@@ -48,6 +48,7 @@ df = df.droplevel(0,axis=1)
 df.columns = cols
 
 with_instruments = len(instrument)>=1
+
 # Plotly Fig
 fig = px.line(df.reset_index(),x='date',y=targets,
                  width=1400, height=500)
